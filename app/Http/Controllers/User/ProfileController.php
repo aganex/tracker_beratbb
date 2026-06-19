@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -13,14 +14,6 @@ class ProfileController extends Controller
 
     public function index()
     {
-        // =================================================
-        // CEK APAKAH USER SUDAH LOGIN
-        // =================================================
-
-        if (!session()->has('user_id')) {
-
-            return redirect('/login');
-        }
 
         // =================================================
         // AMBIL DATA USER YANG SEDANG LOGIN
@@ -32,7 +25,7 @@ class ProfileController extends Controller
         // KIRIM DATA USER KE HALAMAN PROFILE
         // =================================================
 
-        return view('profile', compact('user'));
+        return view('user.profile', compact('user'));
     }
 
     // =====================================================
@@ -102,7 +95,9 @@ class ProfileController extends Controller
         // AMBIL USER YANG SEDANG LOGIN
         // =================================================
 
-        $user = User::find(session('user_id'));
+        $userId = session('user_id');
+
+        $user = User::find($userId);
 
         // =================================================
         // UPDATE DATA PROFILE USER

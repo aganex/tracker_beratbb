@@ -10,11 +10,11 @@ class AuthController extends Controller
 {
     public function showRegister()
     {
-     return view('register');
+        return view('auth.register');
     }
     public function showLogin()
     {
-    return view('login');
+        return view('auth.login');
     }
 
     // Register
@@ -36,26 +36,52 @@ class AuthController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-     return redirect('/login')->with('success', 'Register berhasil, silakan login');
+        return redirect('/login')->with('success', 'Register berhasil, silakan login');
     }
 
     // LOGIN
     public function login(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $request->validate([
 
-        if ($user && Hash::check($request->password, $user->password)) {
+            'email' =>
+                'required|email',
 
-            // simpan session
+            'password' =>
+                'required'
+
+        ]);
+
+        $user = User::where(
+            'email',
+            $request->email
+        )->first();
+
+        if (
+            $user &&
+            Hash::check(
+                $request->password,
+                $user->password
+            )
+        ) {
+
             session([
-                'user_id' => $user->id,
-                'user_name' => $user->name
+
+                'user_id' =>
+                    $user->id,
+
+                'user_name' =>
+                    $user->name
+
             ]);
 
             return redirect('/dashboard');
         }
 
-        return back()->with('error', 'Email atau password salah');
+        return back()->with(
+            'error',
+            'Email atau password salah'
+        );
     }
 
     public function logout()

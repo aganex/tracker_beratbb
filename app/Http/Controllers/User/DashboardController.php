@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\BeratBadan;
 use Carbon\Carbon;
@@ -11,41 +11,39 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // =====================================================
-        // CEK APAKAH USER SUDAH LOGIN
-        // =====================================================
-
-        if (!session()->has('user_id')) {
-
-            return redirect('/login');
-        }
 
         // =====================================================
-        // AMBIL DATA USER YANG SEDANG LOGIN
+        // AMBIL ID USER LOGIN
         // =====================================================
 
-        $user = User::find(session('user_id'));
+        $userId = session('user_id');
 
         // =====================================================
-        // AMBIL SEMUA RIWAYAT BERAT BADAN USER
+        // AMBIL DATA USER
+        // =====================================================
+
+        $user = User::find($userId);
+
+        // =====================================================
+        // AMBIL RIWAYAT BERAT BADAN
         // =====================================================
 
         $riwayat = BeratBadan::where(
-                'user_id',
-                session('user_id')
-            )
-            ->orderBy('tanggal', 'desc')
+            'user_id',
+            $userId
+        )
+            ->latest('tanggal')
             ->get();
 
         // =====================================================
-        // AMBIL BERAT BADAN TERBARU USER
+        // AMBIL BERAT TERBARU
         // =====================================================
 
         $beratTerbaru = BeratBadan::where(
-                'user_id',
-                session('user_id')
-            )
-            ->orderBy('tanggal', 'desc')
+            'user_id',
+            $userId
+        )
+            ->latest('tanggal')
             ->first();
 
         // =====================================================
@@ -157,7 +155,6 @@ class DashboardController extends Controller
                 // =============================================
                 // BMR WANITA
                 // =============================================
-
                 else {
 
                     $bmrRaw =
@@ -236,7 +233,7 @@ class DashboardController extends Controller
         // KIRIM DATA KE DASHBOARD
         // =====================================================
 
-        return view('dashboard', compact(
+        return view('user.dashboard', compact(
 
             'user',
 
