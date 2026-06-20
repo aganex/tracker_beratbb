@@ -139,6 +139,7 @@
                                 <th width="10%">No</th>
                                 <th>Tanggal</th>
                                 <th>Berat Badan</th>
+                                <th>Selisih</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -152,10 +153,33 @@
                                     <td>
                                         <span class="badge bg-primary-subtle text-primary fw-normal">{{ $item->berat }} kg</span>
                                     </td>
+                                    <td>
+                                        @if (isset($riwayat[$loop->index + 1]))
+                                            @php
+                                                $selisih = $item->berat - $riwayat[$loop->index + 1]->berat;
+                                            @endphp
+
+                                            @if ($selisih > 0)
+                                                <span class="text-danger">
+                                                    <i class="bi bi-arrow-up"></i> +{{ number_format($selisih, 1) }} kg
+                                                </span>
+                                            @elseif ($selisih < 0)
+                                                <span class="text-success">
+                                                    <i class="bi bi-arrow-down"></i> {{ number_format($selisih, 1) }} kg
+                                                </span>
+                                            @else
+                                                <span class="text-muted">
+                                                    <i class="bi bi-dash"></i> 0.0 kg
+                                                </span>
+                                            @endif
+                                        @else
+                                            <span class="text-muted">-</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center text-muted py-5">
+                                    <td colspan="4" class="text-center text-muted py-5">
                                         <i class="bi bi-clipboard-data fs-1 d-block mb-2 opacity-50"></i>
                                         Belum ada data berat badan<br>
                                         <small>Catat berat badan pertamamu di form atas</small>

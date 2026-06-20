@@ -6,15 +6,32 @@
     <div class="container py-4">
 
         <!-- HEADER -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 header-card">
             <div class="d-flex align-items-center">
-                <img src="{{ asset('images/logoH.png') }}" alt="Tracker BB" height="55" class="me-3">
-                <div>
-                    <h2 class="mb-1">Edit Profile</h2>
-                    <p class="text-muted mb-0">Lengkapi informasi profil anda</p>
+                <img
+                    src="{{ asset('images/logoH.png') }}"
+                    alt="Tracker BB"
+                    height="44"
+                    class="me-3"
+                >
+
+                <div class="vr me-3 d-none d-sm-block" style="height: 36px; opacity: 0.15;"></div>
+
+                <div class="d-flex align-items-center">
+                    <div class="user-avatar me-3">
+                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                    </div>
+
+                    <div>
+                        <p class="text-muted mb-0 small">Edit Profile</p>
+                        <h5 class="mb-0 fw-semibold">{{ $user->name }}</h5>
+                    </div>
                 </div>
             </div>
-            <a href="/dashboard" class="btn btn-outline-secondary">Kembali</a>
+
+            <a href="/dashboard" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i> Kembali
+            </a>
         </div>
         <!-- HEADER -->
 
@@ -91,4 +108,20 @@
         <!-- FORM DATA PROFILE -->
 
     </div>
+
+    <style>
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1ca3e0, #0a4d68);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+    </style>
 @endsection
