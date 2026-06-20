@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,6 +100,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row min-vh-100 justify-content-center align-items-center py-5">
@@ -106,12 +108,7 @@
 
                 {{-- LOGO --}}
                 <div class="text-center mb-4">
-                    {{-- Ganti src di bawah ini dengan path logo kamu, contoh: asset('images/logo.png') --}}
-                    {{-- <img src="{{ asset('images/logo.png') }}" alt="Tracker BB" height="50" class="mb-2"> --}}
-                    <div class="auth-logo-text">
-                        <span class="text-dark-part">TRACKER</span>
-                        <span class="text-light-part">BB</span>
-                    </div>
+                    <img src="{{ asset('images/logo1.png') }}" alt="Tracker BB" height="300" class="mb-2">
                 </div>
 
                 <div class="card auth-card">
@@ -130,4 +127,5 @@
         </div>
     </div>
 </body>
+
 </html>
