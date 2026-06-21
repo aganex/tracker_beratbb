@@ -51,6 +51,7 @@ class DashboardController extends Controller
         $bmr = null;
         $kaloriHarian = null;
         $sisaTarget = null;
+        $beratIdeal = null;
 
         // =====================================================
         // CEK APAKAH USER SUDAH PUNYA:
@@ -88,6 +89,20 @@ class DashboardController extends Controller
             // FORMAT BMI
             // =================================================
             $bmi = number_format($bmiRaw, 1);
+
+            // =================================================
+            // LOGIKA BERAT IDEAL (RUMUS DEVINE)
+            // =================================================
+            if ($user->jenis_kelamin) {
+
+                if ($user->jenis_kelamin == 'Laki-laki') {
+                    $beratIdealRaw = 50 + (0.9 * ($tinggi - 152));
+                } else {
+                    $beratIdealRaw = 45.5 + (0.9 * ($tinggi - 152));
+                }
+
+                $beratIdeal = number_format($beratIdealRaw, 1);
+            }
 
             // =================================================
             // HITUNG UMUR
@@ -164,7 +179,8 @@ class DashboardController extends Controller
             'umur',
             'bmr',
             'kaloriHarian',
-            'sisaTarget'
+            'sisaTarget',
+            'beratIdeal'
         ));
     }
 }
