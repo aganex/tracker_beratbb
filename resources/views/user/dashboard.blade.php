@@ -28,40 +28,60 @@
         @endif
 
         <!-- STAT CARDS -->
-        <div class="row mb-4">
+        <div class="row mb-4 g-3">
 
             <div class="col-md-3">
-                <div class="card text-center shadow-sm">
-                    <div class="card-body">
-                        <small class="text-muted">Berat</small>
-                        <h3>{{ $beratTerbaru->berat ?? '-' }} kg</h3>
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon bg-primary-subtle text-primary">
+                            <i class="bi bi-speedometer2"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Berat</small>
+                            <h4 class="mb-0">{{ $beratTerbaru->berat ?? '-' }} <span class="fs-6 text-muted">kg</span></h4>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="card text-center shadow-sm">
-                    <div class="card-body">
-                        <small class="text-muted">BMI</small>
-                        <h3>{{ $bmi ?? '-' }}</h3>
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon bg-info-subtle text-info">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">BMI</small>
+                            <h4 class="mb-0">{{ $bmi ?? '-' }}</h4>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="card text-center shadow-sm">
-                    <div class="card-body">
-                        <small class="text-muted">Kalori</small>
-                        <h3>{{ $kaloriHarian ?? '-' }}</h3>
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon bg-warning-subtle text-warning">
+                            <i class="bi bi-fire"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Kalori</small>
+                            <h4 class="mb-0">{{ $kaloriHarian ?? '-' }}</h4>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="card text-center shadow-sm">
-                    <div class="card-body">
-                        <small class="text-muted">Target</small>
-                        <h3>{{ $user->target_berat ?? '-' }} kg</h3>
+                <div class="card stat-card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon bg-success-subtle text-success">
+                            <i class="bi bi-flag"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Target</small>
+                            <h4 class="mb-0">{{ $user->target_berat ?? '-' }} <span class="fs-6 text-muted">kg</span></h4>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,13 +91,39 @@
 
         <!-- INFORMASI TUBUH -->
         <div class="card mb-4">
-            <div class="card-header">Informasi Tubuh</div>
+            <div class="card-header py-3">
+                <span class="fs-5 fw-semibold">
+                    <i class="bi bi-person-lines-fill me-2"></i> Informasi Tubuh
+                </span>
+            </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">Tinggi Badan : {{ $user->tinggi_badan ?? '-' }} cm</div>
-                    <div class="col-md-6">Jenis Kelamin : {{ $user->jenis_kelamin ?? '-' }}</div>
-                    <div class="col-md-6 mt-3">Umur : {{ $umur ?? '-' }} tahun</div>
-                    <div class="col-md-6 mt-3">Status BMI : {{ $statusBMI ?? '-' }}</div>
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <span class="text-muted small d-block">Tinggi Badan</span>
+                        <span class="fw-medium">{{ $user->tinggi_badan ?? '-' }} cm</span>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="text-muted small d-block">Jenis Kelamin</span>
+                        <span class="fw-medium">{{ $user->jenis_kelamin ?? '-' }}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="text-muted small d-block">Umur</span>
+                        <span class="fw-medium">{{ $umur ?? '-' }} tahun</span>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="text-muted small d-block mb-1">Status BMI</span>
+                        @if ($statusBMI === 'Normal')
+                            <span class="badge bg-success-subtle text-success fw-normal px-2 py-1">{{ $statusBMI }}</span>
+                        @elseif ($statusBMI === 'Kurus')
+                            <span class="badge bg-warning-subtle text-warning fw-normal px-2 py-1">{{ $statusBMI }}</span>
+                        @elseif ($statusBMI === 'Overweight')
+                            <span class="badge bg-orange-subtle text-orange fw-normal px-2 py-1">{{ $statusBMI }}</span>
+                        @elseif ($statusBMI === 'Obesitas')
+                            <span class="badge bg-danger-subtle text-danger fw-normal px-2 py-1">{{ $statusBMI }}</span>
+                        @else
+                            <span class="text-muted">-</span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,13 +131,29 @@
 
         <!-- TARGET KALORI -->
         <div class="card mb-4">
-            <div class="card-header">Target & Kalori</div>
+            <div class="card-header py-3">
+                <span class="fs-5 fw-semibold">
+                    <i class="bi bi-bullseye me-2"></i> Target & Kalori
+                </span>
+            </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">BMR : {{ $bmr ?? '-' }} kcal</div>
-                    <div class="col-md-6">Kalori Harian : {{ $kaloriHarian ?? '-' }} kcal</div>
-                    <div class="col-md-6 mt-3">Target Berat : {{ $user->target_berat ?? '-' }} kg</div>
-                    <div class="col-md-6 mt-3">Sisa Target : {{ $sisaTarget ?? '-' }} kg</div>
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <span class="text-muted small d-block">BMR</span>
+                        <span class="fw-medium">{{ $bmr ?? '-' }} kcal</span>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="text-muted small d-block">Kalori Harian</span>
+                        <span class="fw-medium">{{ $kaloriHarian ?? '-' }} kcal</span>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="text-muted small d-block">Target Berat</span>
+                        <span class="fw-medium">{{ $user->target_berat ?? '-' }} kg</span>
+                    </div>
+                    <div class="col-md-6">
+                        <span class="text-muted small d-block">Sisa Target</span>
+                        <span class="fw-medium">{{ $sisaTarget ?? '-' }} kg</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -99,7 +161,11 @@
 
         <!-- INPUT BERAT BADAN -->
         <div class="card mb-4">
-            <div class="card-header">Input Berat Badan</div>
+            <div class="card-header py-3">
+                <span class="fs-5 fw-semibold">
+                    <i class="bi bi-plus-circle me-2"></i> Input Berat Badan
+                </span>
+            </div>
             <div class="card-body">
                 <form method="POST" action="/berat-badan">
                     @csrf
@@ -129,11 +195,16 @@
         <!-- INPUT BERAT BADAN -->
 
         <!-- RIWAYAT BB -->
-        <div class="card mb-4">
-            <div class="card-header">Riwayat Berat Badan</div>
+        <div class="card mb-4" style="overflow: hidden;">
+            <div class="card-header d-flex justify-content-between align-items-center bg-white py-3">
+                <span class="fs-5 fw-semibold">
+                    <i class="bi bi-clock-history me-2"></i> Riwayat Berat Badan
+                </span>
+            </div>
+
             <div class="card-body p-0">
                 <div style="max-height: 350px; overflow-y: auto;">
-                    <table class="table table-hover table-striped mb-0 align-middle">
+                    <table class="table table-hover align-middle mb-0 table-padded">
                         <thead class="table-light sticky-top">
                             <tr>
                                 <th width="10%">No</th>
@@ -195,140 +266,20 @@
 
         <!-- Grafik Berat Badan -->
         <div class="card mb-4">
-            <div class="card-header">Grafik Berat Badan</div>
+            <div class="card-header py-3">
+                <span class="fs-5 fw-semibold">
+                    <i class="bi bi-bar-chart-line me-2"></i> Grafik Berat Badan
+                </span>
+            </div>
             <div class="card-body">
                 <canvas id="beratChart" height="100"></canvas>
             </div>
         </div>
 
-        <script>
-            window.onload = function () {
-                const labels = [
-                    @foreach ($riwayatGrafik as $item)
-                        '{{ \Carbon\Carbon::parse($item->tanggal)->format('d M') }}',
-                    @endforeach
-                ];
-
-                const dataBerat = [
-                    @foreach ($riwayatGrafik as $item)
-                        {{ $item->berat }},
-                    @endforeach
-                ];
-
-                const targetBerat = {{ $user->target_berat ?? 'null' }};
-
-                // =====================================================
-                // CARI INDEX NILAI TERTINGGI & TERENDAH
-                // =====================================================
-                const maxValue = Math.max(...dataBerat);
-                const minValue = Math.min(...dataBerat);
-
-                const pointColors = dataBerat.map(function (berat) {
-                    if (berat === maxValue) return '#dc3545';
-                    if (berat === minValue) return '#198754';
-                    return '#1ca3e0';
-                });
-
-                const pointRadiuses = dataBerat.map(function (berat) {
-                    return (berat === maxValue || berat === minValue) ? 6 : 4;
-                });
-
-                // =====================================================
-                // GRADIENT FILL
-                // =====================================================
-                const ctx = document.getElementById('beratChart');
-                const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 250);
-                gradient.addColorStop(0, 'rgba(28, 163, 224, 0.35)');
-                gradient.addColorStop(1, 'rgba(28, 163, 224, 0.02)');
-
-                // =====================================================
-                // SUSUN DATASET
-                // =====================================================
-                const datasets = [{
-                    label: 'Berat Badan (kg)',
-                    data: dataBerat,
-                    borderColor: '#1ca3e0',
-                    backgroundColor: gradient,
-                    borderWidth: 3,
-                    tension: 0.3,
-                    fill: true,
-                    pointBackgroundColor: pointColors,
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointRadius: pointRadiuses,
-                    pointHoverRadius: 7
-                }];
-
-                if (targetBerat) {
-                    datasets.push({
-                        label: 'Target Berat (kg)',
-                        data: labels.map(function () { return targetBerat; }),
-                        borderColor: '#6c757d',
-                        borderWidth: 2,
-                        borderDash: [6, 6],
-                        pointRadius: 0,
-                        fill: false
-                    });
-                }
-
-                // =====================================================
-                // RENDER CHART
-                // =====================================================
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: datasets
-                    },
-                    options: {
-                        responsive: true,
-                        interaction: {
-                            mode: 'index',
-                            intersect: false
-                        },
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top',
-                                labels: {
-                                    usePointStyle: true,
-                                    boxWidth: 8
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function (context) {
-                                        if (context.dataset.label === 'Target Berat (kg)') {
-                                            return 'Target: ' + context.parsed.y + ' kg';
-                                        }
-
-                                        const index = context.dataIndex;
-                                        const beratSekarang = dataBerat[index];
-                                        const beratSebelumnya = index > 0 ? dataBerat[index - 1] : null;
-
-                                        let label = 'Berat: ' + beratSekarang + ' kg';
-
-                                        if (beratSebelumnya !== null) {
-                                            const selisih = (beratSekarang - beratSebelumnya).toFixed(1);
-                                            const tanda = selisih > 0 ? '+' : '';
-                                            label += ' (' + tanda + selisih + ' kg dari sebelumnya)';
-                                        }
-
-                                        return label;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: false
-                            }
-                        }
-                    }
-                });
-            };
-        </script>
+        @include('layouts.user-chart')
         <!-- Grafik Berat Badan -->
 
     </div>
+
+
 @endsection
