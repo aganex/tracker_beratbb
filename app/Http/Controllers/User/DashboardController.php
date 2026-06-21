@@ -26,17 +26,20 @@ class DashboardController extends Controller
         // =====================================================
         $riwayat = BeratBadan::where('user_id', $userId)
             ->orderBy('tanggal', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         $riwayatGrafik = BeratBadan::where('user_id', $userId)
             ->orderBy('tanggal', 'asc')
+            ->orderBy('id', 'asc')
             ->get();
 
         // =====================================================
         // AMBIL BERAT TERBARU
         // =====================================================
         $beratTerbaru = BeratBadan::where('user_id', $userId)
-            ->latest('tanggal')
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('id', 'desc')
             ->first();
 
         // =====================================================

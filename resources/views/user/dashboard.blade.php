@@ -215,7 +215,7 @@
                         </thead>
                         <tbody>
                             @forelse ($riwayat as $item)
-                                <tr @if ($loop->first) class="border-start border-3 border-primary" @endif>
+                                <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
                                         <i class="bi bi-calendar3 text-muted me-1"></i>

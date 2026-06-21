@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\BeratBadan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -80,18 +81,46 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
+
             'name' => 'required',
+
             'email' => 'required|email',
-            'role' => 'required|in:user,admin'
+
+            'role' => 'required|in:user,admin',
+
+            'password' => 'nullable|min:3|confirmed'
+
         ]);
 
         $user->update([
+
             'name' => $request->name,
+
             'email' => $request->email,
+
             'role' => $request->role,
+
             'jenis_kelamin' => $request->jenis_kelamin
+
         ]);
 
-        return redirect('/admin')->with('success', 'User berhasil diupdate');
+        // UPDATE PASSWORD JIKA DIISI
+        if ($request->filled('password')) {
+
+            $user->update([
+
+                'password' => Hash::make(
+                    $request->password
+                )
+
+            ]);
+
+        }
+
+        return redirect('/admin')
+            ->with(
+                'success',
+                'User berhasil diupdate'
+            );
     }
 }
