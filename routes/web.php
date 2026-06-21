@@ -58,3 +58,6 @@ Route::middleware('user.auth')->group(function () {
 */
 
 Route::get('/admin', [AdminController::class, 'index']);
+Route::delete('/admin/user/{id}',[AdminController::class, 'destroy']);
+Route::get('/admin/user/{id}/edit',[AdminController::class, 'edit']);
+Route::put('/admin/user/{id}', [AdminController::class, 'update']);

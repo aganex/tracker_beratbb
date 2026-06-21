@@ -119,8 +119,13 @@
                                     <td>
                                         <div class="d-flex gap-1">
                                             <a href="#" class="btn btn-sm btn-info">Chat</a>
-                                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                                            <a href="#" class="btn btn-sm btn-danger">Hapus</a>
+                                            <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-sm btn-warning">Edit</a>
+                                            <form action="/admin/user/{{ $user->id }}" method="POST"
+                                                onsubmit="return confirm('Hapus akun {{ $user->name }}?\n\nSemua data riwayat berat badan milik akun ini akan ikut terhapus secara permanen dan tidak bisa dikembalikan.')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

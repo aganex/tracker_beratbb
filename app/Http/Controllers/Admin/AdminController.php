@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\BeratBadan;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -51,5 +52,46 @@ class AdminController extends Controller
             'totalWanita',
             'users'
         ));
+    }
+
+    // =====================================================
+    // HAPUS AKUN
+    // =====================================================
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect('/admin')->with('success', 'User berhasil dihapus');
+    }
+
+    // =====================================================
+    // EDIT AKUN
+    // =====================================================
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('admin.edit-user', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'role' => 'required|in:user,admin'
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'jenis_kelamin' => $request->jenis_kelamin
+        ]);
+
+        return redirect('/admin')->with('success', 'User berhasil diupdate');
     }
 }
