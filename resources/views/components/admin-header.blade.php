@@ -3,7 +3,8 @@
         <div class="d-flex justify-content-between align-items-center">
 
             <div class="d-flex align-items-center gap-3">
-                <img src="{{ asset('images/logoH.png') }}" alt="Logo" style="height: 40px; display: block; margin-top: -11px;">
+                <img src="{{ asset('images/logoH.png') }}" alt="Logo"
+                    style="height: 40px; display: block; margin-top: -11px;">
 
                 <div class="vr d-none d-sm-block" style="height: 40px; opacity: 0.12;"></div>
 
@@ -11,10 +12,12 @@
                     <a href="/admin" class="admin-nav-link {{ request()->is('admin') ? 'active' : '' }}">
                         <i class="bi bi-people me-1"></i> Manajemen Akun
                     </a>
-                    <a href="/chat" class="admin-nav-link {{ request()->is('chat') ? 'active' : '' }}">
-                        <i class="bi bi-chat-dots me-1"></i> Chat Konsultasi
-                        @if (isset($unreadChat) && $unreadChat > 0)
-                            <span class="badge rounded-pill bg-danger ms-1">{{ $unreadChat }}</span>
+                    <a href="/admin/chat" class="admin-nav-link {{ request()->is('admin/chat*') ? 'active' : '' }}">
+                        <i class="bi bi-chat-dots me-1"></i>Chat Konsultasi
+                        @if(isset($unreadChat) && $unreadChat > 0)
+                            <span class="badge rounded-pill bg-danger ms-1">
+                                {{ $unreadChat }}
+                            </span>
                         @endif
                     </a>
                 </nav>
@@ -78,5 +81,4 @@
         font-size: 14px;
         flex-shrink: 0;
     }
-
 </style>

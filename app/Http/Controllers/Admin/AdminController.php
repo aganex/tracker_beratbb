@@ -41,8 +41,8 @@ class AdminController extends Controller
                 });
             })
             ->latest()
-            ->paginate(10)
-            ->withQueryString();
+            ->get();
+
 
         // =====================================================
         // KIRIM KE VIEW

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\BeratBadan;
+use App\Models\Chat;
 
 class User extends Authenticatable
 {
@@ -51,6 +52,15 @@ class User extends Authenticatable
     ];
     public function beratBadan()
     {
-        return $this->hasMany(BeratBadan::class);
+        return $this->hasMany(
+            BeratBadan::class
+        );
+    }
+
+    public function chat()
+    {
+        return $this->hasOne(
+            Chat::class
+        );
     }
 }
